@@ -45,6 +45,13 @@ def print(students)
   end
 end
 
+def sort_by_cohort(students)
+  sorted = students.sort_by {|hash| hash[:cohort]}
+  sorted.each_with_index do |student, index|
+    puts "#{sorted[index][:cohort]}, #{sorted[index][:name]}"
+  end
+end
+
 def print_footer(students)
   puts "Overall, we have #{students.count} great students."
 end
@@ -66,6 +73,4 @@ def filter_by_length(students)
 end
 
 students = input_students
-print_header
-print(students)
-print_footer(students)
+sort_by_cohort(students)
