@@ -23,8 +23,8 @@ def print_header
 end
 
 def print(students)
-  students.each do |student|
-    puts "#{student[:name]} (#{student[:cohort]})"
+  students.each_with_index do |(student, cohort), index|
+    puts "#{index+1}. #{student[:name]} (#{student[:cohort]})"
   end
 end
 
@@ -32,7 +32,17 @@ def print_footer(students)
   puts "Overall, we have #{students.count} great students."
 end
 
+def filter(students)
+  puts "Which letter would you like to filter by?"
+  letter = gets.chomp.upcase
+  puts "Results:"
+  students.each_with_index do |(student, cohort), index|
+    puts "#{student[:name]} (#{student[:cohort]})" if student[:name][0] == letter
+  end
+end
+
 students = input_students
 print_header
-print(students)
-print_footer(students)
+#print(students)
+filter(students)
+#print_footer(students)
