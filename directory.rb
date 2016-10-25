@@ -9,6 +9,13 @@ def input_students
   # get the first name
   puts "Name:"
   name = gets.chomp
+  while name.empty? do
+    puts "Please type something, or 'quit' to exit:"
+    name = gets.chomp
+    if name == 'quit'
+      exit
+    end
+  end
   # while the name is not empty, repeat this code
   while !name.empty? do
     puts "Enter the student's hobbies:"
