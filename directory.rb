@@ -8,7 +8,7 @@ def input_students
   cohorts = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
   # get the first name
   puts "Name:"
-  name = gets.chomp
+  name = gets.slice(0..-2)
   # while the name is not empty, repeat this code
   while !name.empty? do
     puts "Enter the student's hobbies:"
@@ -53,7 +53,11 @@ def sort_by_cohort(students)
 end
 
 def print_footer(students)
-  puts "Overall, we have #{students.count} great students."
+  if students.length == 1
+    num = "student"
+  else num = "students"
+  end
+  puts "Overall, we have #{students.count} great #{num}."
 end
 
 def filter(students)
@@ -73,4 +77,6 @@ def filter_by_length(students)
 end
 
 students = input_students
-sort_by_cohort(students)
+print_header
+print(students)
+print_footer(students)
