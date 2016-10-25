@@ -9,8 +9,8 @@ end
 
 def show_students
   print_header
-  print(@students)
-  print_footer(@students)
+  print_students_list
+  print_footer
 end
 
 def input_students
@@ -68,44 +68,21 @@ def print_header
   puts "-------------".center($line_width)
 end
 
-def print(students)
+def print_students_list
   line_width = 50
-  students.each_with_index do |(student, cohort), index|
+  @students.each_with_index do |(student, cohort), index|
     puts "#{index+1}. #{student[:name]} (#{student[:cohort]})".center($line_width)
     puts "Hobbies: #{student[:hobbies]}".center($line_width)
     puts "Country of Birth: #{student[:birthcountry]}".center($line_width)
   end
 end
 
-def sort_by_cohort(students)
-  sorted = students.sort_by {|hash| hash[:cohort]}
-  sorted.each_with_index do |student, index|
-    puts "#{sorted[index][:cohort]}, #{sorted[index][:name]}"
-  end
-end
-
-def print_footer(students)
-  if students.length == 1
+def print_footer
+  if @students.length == 1
     num = "student"
   else num = "students"
   end
-  puts "Overall, we have #{students.count} great #{num}."
-end
-
-def filter(students)
-  puts "Which letter would you like to filter by?"
-  letter = gets.chomp.upcase
-  puts "Results:"
-  students.each_with_index do |(student, cohort), index|
-    puts "#{student[:name]} (#{student[:cohort]})" if student[:name][0] == letter
-  end
-end
-
-def filter_by_length(students)
-  puts "Printing students with names of fewer than 12 characters:"
-  students.each do |student|
-    puts "#{student[:name]} (#{student[:cohort]})" if student[:name].length < 12
-  end
+  puts "Overall, we have #{@students.count} great #{num}."
 end
 
 def interactive_menu
@@ -116,3 +93,27 @@ def interactive_menu
 end
 
 interactive_menu
+
+
+# def sort_by_cohort
+#   sorted = @students.sort_by {|hash| hash[:cohort]}
+#   sorted.each_with_index do |student, index|
+#     puts "#{sorted[index][:cohort]}, #{sorted[index][:name]}"
+#   end
+# end
+#
+# def filter
+#   puts "Which letter would you like to filter by?"
+#   letter = gets.chomp.upcase
+#   puts "Results:"
+#   @students.each_with_index do |(student, cohort), index|
+#     puts "#{student[:name]} (#{student[:cohort]})" if student[:name][0] == letter
+#   end
+# end
+#
+# def filter_by_length
+#   puts "Printing students with names of fewer than 12 characters:"
+#   @students.each do |student|
+#     puts "#{student[:name]} (#{student[:cohort]})" if student[:name].length < 12
+#   end
+# end
