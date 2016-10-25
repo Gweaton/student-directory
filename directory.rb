@@ -50,4 +50,5 @@ end
 
 students = input_students
 print_header
-filter_by_length(students)
+print(students)
+print_footer(students)
