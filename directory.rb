@@ -41,8 +41,13 @@ def filter(students)
   end
 end
 
+def filter_by_length(students)
+  puts "Printing students with names of fewer than 12 characters:"
+  students.each do |student|
+    puts "#{student[:name]} (#{student[:cohort]})" if student[:name].length < 12
+  end
+end
+
 students = input_students
 print_header
-#print(students)
-filter(students)
-#print_footer(students)
+filter_by_length(students)
