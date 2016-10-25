@@ -14,8 +14,13 @@ def input_students
     hobbies = gets.chomp
     puts "Enter country of birth:"
     birthcountry = gets.chomp
+    puts "Enter their cohort:"
+    cohort = gets.chomp
+    if cohort == ""
+      cohort = "November"
+    end
     # add the student hash to the array
-    students << {name: name, hobbies: hobbies, cohort: :november, birthcountry: birthcountry}
+    students << {name: name, hobbies: hobbies, cohort: cohort, birthcountry: birthcountry}
     puts "Now we have #{students.count} students."
     # get another name from the user
     puts "Please enter another name:"
