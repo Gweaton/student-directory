@@ -8,7 +8,7 @@ def input_students
   cohorts = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
   # get the first name
   puts "Name:"
-  name = gets.slice(0..-2)
+  name = gets.chomp
   # while the name is not empty, repeat this code
   while !name.empty? do
     puts "Enter the student's hobbies:"
