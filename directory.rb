@@ -1,3 +1,5 @@
+$line_width = 50
+
 def input_students
   puts "Please enter the names of the students."
   puts "To finish, just hit return twice."
@@ -24,15 +26,16 @@ def input_students
 end
 
 def print_header
-  puts "The students of Villains Academy"
-  puts "-------------"
+  puts "The students of Villains Academy".center($line_width)
+  puts "-------------".center($line_width)
 end
 
 def print(students)
+  line_width = 50
   students.each_with_index do |(student, cohort), index|
-    puts "#{index+1}. #{student[:name]} (#{student[:cohort]})"
-    puts "   Hobbies: #{student[:hobbies]}"
-    puts "   Country of Birth: #{student[:birthcountry]}"
+    puts "#{index+1}. #{student[:name]} (#{student[:cohort]})".center($line_width)
+    puts "Hobbies: #{student[:hobbies]}".center($line_width)
+    puts "Country of Birth: #{student[:birthcountry]}".center($line_width)
   end
 end
 
