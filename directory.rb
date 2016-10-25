@@ -5,6 +5,7 @@ def input_students
   puts "To finish, just hit return twice."
   # create an empty array
   students = []
+  cohorts = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
   # get the first name
   puts "Name:"
   name = gets.chomp
@@ -15,9 +16,9 @@ def input_students
     puts "Enter country of birth:"
     birthcountry = gets.chomp
     puts "Enter their cohort:"
-    cohort = gets.chomp
-    if cohort == ""
-      cohort = "November"
+    cohort = gets.chomp.capitalize
+    if (cohorts.include? cohort) == false
+      cohort = "unknown"
     end
     # add the student hash to the array
     students << {name: name, hobbies: hobbies, cohort: cohort, birthcountry: birthcountry}
