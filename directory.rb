@@ -16,7 +16,7 @@ def show_students
 end
 
 def input_students
-  cohorts = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+  cohorts = [:january, :february, :march, :april, :may, :june, :july, :august, :september, :october, :november, :december]
   puts "Please enter the names of the students."
   puts "To finish, just hit return twice."
   # create an empty array
@@ -32,17 +32,13 @@ def input_students
   end
   # while the name is not empty, repeat this code
   while !name.empty? do
-    puts "Enter the student's hobbies:"
-    hobbies = STDIN.gets.chomp
-    puts "Enter country of birth:"
-    birthcountry = STDIN.gets.chomp
     puts "Enter their cohort:"
-    cohort = STDIN.gets.chomp.capitalize
+    cohort = STDIN.gets.chomp.downcase.to_sym
     if (cohorts.include? cohort) == false
-      cohort = "unknown"
+      cohort = :unknown
     end
     # add the student hash to the array
-    @students << {name: name, hobbies: hobbies, cohort: cohort, birthcountry: birthcountry}
+    @students << {name: name, cohort: cohort}
     if @students.count == 1
       num = "student"
     else num = "students"
@@ -82,8 +78,6 @@ def print_students_list
   line_width = 50
   @students.each_with_index do |(student, cohort), index|
     puts "#{index+1}. #{student[:name]} (#{student[:cohort]})".center($line_width)
-    puts "Hobbies: #{student[:hobbies]}".center($line_width)
-    puts "Country of Birth: #{student[:birthcountry]}".center($line_width)
   end
 end
 
@@ -133,8 +127,7 @@ def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(",")
-    @students << {name: name, cohort: cohort}
-    #have left this as a string so it matches cohorts array, rather than converted to symbol
+    @students << {name: name, cohort: cohort.to_sym}
   end
   file.close
 end
