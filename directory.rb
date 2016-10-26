@@ -4,6 +4,7 @@ $line_width = 50
 def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
+  puts "3. Save the list to students.csv"
   puts "9. Exit"
 end
 
@@ -14,10 +15,10 @@ def show_students
 end
 
 def input_students
+  cohorts = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
   puts "Please enter the names of the students."
   puts "To finish, just hit return twice."
   # create an empty array
-  cohorts = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
   # get the first name
   puts "Name:"
   name = gets.chomp
@@ -41,7 +42,11 @@ def input_students
     end
     # add the student hash to the array
     @students << {name: name, hobbies: hobbies, cohort: cohort, birthcountry: birthcountry}
-    puts "Now we have #{@students.count} students."
+    if @students.count == 1
+      num = "student"
+    else num = "students"
+    end
+    puts "Now we have #{@students.count} #{num}."
     # get another name from the user
     puts "Please enter another name:"
     name = gets.chomp
@@ -56,6 +61,8 @@ def process(selection)
       input_students
     when "2"
       show_students
+    when "3"
+      save_students
     when "9"
       exit
     else
@@ -91,6 +98,23 @@ def interactive_menu
     process(gets.chomp)
   end
 end
+
+def save_students
+  #open the file for writing
+  file = File.open("students.csv", "w")
+  #iterate over the array of students
+  @students.each do |student|
+    student_data = [student[:name], student[:cohort]]
+    #join the array into a single string, separated by commas
+    csv_line = student_data.join(",")
+    #write each csv line to the file "students.csv"
+    file.puts csv_line
+  end
+  file.close
+end
+
+
+
 
 interactive_menu
 
