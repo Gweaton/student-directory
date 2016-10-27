@@ -1,3 +1,4 @@
+require 'csv'
 @students = []
 
 def print_menu
@@ -109,16 +110,16 @@ end
 def save_students
   #open the file for writing
   filename = user_file
-  file = File.open(filename, "w")
+  CSV.open(filename, "w") do |file|
   #iterate over the array of students
-  @students.each do |student|
-    student_data = [student[:name], student[:cohort]]
-    #join the array into a single string, separated by commas
-    csv_line = student_data.join(",")
-    #write each csv line to the file "students.csv"
-    file.puts csv_line
+    @students.each do |student|
+      student_data = [student[:name], student[:cohort]]
+      #join the array into a single string, separated by commas
+      csv_line = student_data
+      #write each csv line to the file "students.csv"
+      file.puts csv_line
+    end
   end
-  file.close
 end
 
 def user_file
@@ -144,12 +145,10 @@ end
 def load_students(filename = "students.csv")
   #given default value, but can open any text file passed
   @students = []
-  file = File.open(filename, "r")
-  file.readlines.each do |line|
-    name, cohort = line.chomp.split(",")
+  CSV.foreach(filename) do |line|
+    name, cohort = line[0], line[1]
     add_student_to_array(name, cohort)
-   end
-  file.close
+ end
 end
 
 def add_student_to_array(name, cohort)
