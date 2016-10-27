@@ -5,8 +5,8 @@ def print_menu
   puts "--------------------------"
   puts "1. Input the students"
   puts "2. Show the students"
-  puts "3. Save the list to students.csv"
-  puts "4. Load the list from students.csv"
+  puts "3. Save the list to a file"
+  puts "4. Load the list from a new file"
   puts "9. Exit"
 end
 
@@ -67,8 +67,8 @@ def process(selection)
     when "4"
       puts "Loading students..."
       puts
-      load_students
-    when "9"
+      try_load_students
+     when "9"
       puts "Quitting..."
       puts
       exit
@@ -108,7 +108,8 @@ end
 
 def save_students
   #open the file for writing
-  file = File.open("students.csv", "w")
+  filename = user_file
+  file = File.open(filename, "w")
   #iterate over the array of students
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
@@ -120,10 +121,15 @@ def save_students
   file.close
 end
 
+def user_file
+  puts "Please enter a filename:"
+  filename = gets.chomp
+end
+
 def try_load_students
   filename = ARGV.first #first argument from the command line
   if filename.nil?
-    filename = "students.csv"
+  filename = user_file
   end
    #default file "students.csv" if no arguments from command line
   if File.exists?(filename) #if it exists
@@ -137,6 +143,7 @@ end
 
 def load_students(filename = "students.csv")
   #given default value, but can open any text file passed
+  @students = []
   file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(",")
@@ -148,6 +155,8 @@ end
 def add_student_to_array(name, cohort)
   @students << {name: name, cohort: cohort.to_sym}
 end
+
+
 
 try_load_students
 interactive_menu
