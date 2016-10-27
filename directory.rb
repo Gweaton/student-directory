@@ -1,7 +1,8 @@
-$line_width = 50
 @students = []
 
 def print_menu
+  puts "Student Directory Menu"
+  puts "--------------------------"
   puts "1. Input the students"
   puts "2. Show the students"
   puts "3. Save the list to students.csv"
@@ -39,10 +40,7 @@ def input_students
     end
     # add the student hash to the array
     add_student_to_array(name, cohort)
-    if @students.count == 1
-      num = "student"
-    else num = "students"
-    end
+    num = (@students.count == 1)? "student" : "students"
     puts "Now we have #{@students.count} #{num}."
     # get another name from the user
     puts "Please enter another name:"
@@ -55,14 +53,24 @@ end
 def process(selection)
   case selection
     when "1"
+      puts "Inputting students"
+      puts
       input_students
     when "2"
+      puts "Showing students..."
+      puts
       show_students
     when "3"
+      puts "Saving students..."
+      puts
       save_students
     when "4"
+      puts "Loading students..."
+      puts
       load_students
     when "9"
+      puts "Quitting..."
+      puts
       exit
     else
       puts "I don't know what you mean, try again"
@@ -70,15 +78,16 @@ def process(selection)
   end
 
 def print_header
-  puts "The students of Villains Academy".center($line_width)
-  puts "-------------".center($line_width)
+  puts "The students of Villains Academy".center(50)
+  puts "-------------".center(50)
 end
 
 def print_students_list
   line_width = 50
   @students.each_with_index do |(student, cohort), index|
-    puts "#{index+1}. #{student[:name]} (#{student[:cohort]})".center($line_width)
+    puts "#{index+1}. #{student[:name]} (#{student[:cohort]})"
   end
+  puts ""
 end
 
 def print_footer
@@ -87,6 +96,7 @@ def print_footer
   else num = "students"
   end
   puts "Overall, we have #{@students.count} great #{num}."
+  puts ""
 end
 
 def interactive_menu
@@ -114,7 +124,7 @@ def try_load_students
   filename = ARGV.first #first argument from the command line
   if filename.nil?
     filename = "students.csv"
-  end  
+  end
    #default file "students.csv" if no arguments from command line
   if File.exists?(filename) #if it exists
     load_students(filename)
